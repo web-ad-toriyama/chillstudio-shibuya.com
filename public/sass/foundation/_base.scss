@@ -1,0 +1,79 @@
+@use "../global" as g;
+
+/*--------------------------------------
+サイト共通定義
+--------------------------------------*/
+html{
+  scroll-behavior: smooth;
+}
+body{
+  line-height: 1.8;
+  margin: 0 auto;
+  min-height: 800px;
+  min-width: 320px;
+  width: 100%;
+  color: var(--black);
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  font-family: g.$font_1;
+  font-weight: 300;
+  font-style: normal;
+  position: relative;
+
+  &.open{
+    overflow: hidden;
+
+    @include g.md{
+      overflow: auto;
+    }
+  }
+}
+
+body::-webkit-scrollbar {
+  width: 16px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--main_color);
+  border-radius: 100px;
+}
+
+::selection {
+  background: var(--main_color);
+  color: #fff;
+}
+
+ul {
+  &::-webkit-scrollbar{
+    display: none;
+  }
+}
+
+.wrapper{
+  width: 100%;
+  max-width:2000px;
+  margin: 0 auto;
+  // overflow-y: scroll;
+  overflow: hidden;
+}
+
+.inner{
+  max-width: 1200px;
+  margin: auto;
+}
+
+.bg_color{
+  background: #E9EEED;
+}
+
+.flex{
+  display: block;
+  @include g.md{
+    display: flex;
+    justify-content: space-between;
+  }
+}

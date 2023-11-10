@@ -1,0 +1,31 @@
+@use "../global" as g;
+/*--------------------------------------
+共通のSNSアイコン
+--------------------------------------*/
+.sns{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  a{
+    background: var(--main_color);
+    color: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 18px !important;
+    transition: .5s !important;
+
+    &:hover{
+      opacity: .7 !important;
+    }
+
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}

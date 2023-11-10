@@ -1,0 +1,14 @@
+@use "variables" as v;
+
+// @mixin
+// ブレイクポイント
+@mixin md {
+  @media (min-width: (v.$md)) {
+    @content;
+  }
+}
+@mixin lg {
+  @media (min-width: (v.$lg)) {
+    @content;
+  }
+}

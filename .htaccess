@@ -1,0 +1,3 @@
+<Files ~ "^\.(htaccess|env|env.prod|env.local)$">
+  deny from all
+</Files>

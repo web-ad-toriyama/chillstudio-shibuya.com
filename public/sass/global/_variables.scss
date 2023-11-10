@@ -1,0 +1,14 @@
+/*変数*/
+// ブレイクポイント
+$md: 600px;
+$lg: 1025px;
+
+// サイトで使用する色↓は一例なので自由に設定
+:root {
+  --main_color: #364542; // メインカラー
+  --black:#4D4D4D; // 文字色など
+}
+
+// サイトのフォント font-familyに設定
+$font_1: a-otf-ryumin-pr6n, serif; // 全体のメインフォント
+$font_2: yu-gothic-pr6n, sans-serif; // ワンポイントで使用したいときのフォント

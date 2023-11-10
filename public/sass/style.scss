@@ -1,0 +1,7 @@
+// @use
+
+@use 'global' as g; // 変数
+@use 'foundation'; // Webサイト全体のベース
+@use 'layout'; // レイアウト部分
+@use 'component'; // 細かいパーツ
+@use 'page'; // 下層ページ

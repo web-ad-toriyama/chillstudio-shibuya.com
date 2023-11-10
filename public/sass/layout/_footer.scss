@@ -1,0 +1,137 @@
+@use "../global" as g;
+
+/*--------------------------------------
+フッター
+--------------------------------------*/
+footer {
+
+    address {
+        background: url(../images/bg_cat_03.jpg) no-repeat 50% 70% / cover;
+        color: #fff;
+        padding: 40px 20px;
+        text-align: center;
+
+        @include g.md {
+            padding: 80px 20px;
+        }
+
+        .title {
+            color: #fff;
+
+            span {
+                color: #fff;
+            }
+        }
+
+        p {
+            font-size: 12px;
+            margin-bottom: 20px;
+
+            @include g.md {
+                font-size: 14px;
+                margin-bottom: 40px;
+            }
+
+            br {
+                display: block;
+
+                @include g.md {
+                    display: none;
+                }
+            }
+        }
+
+        .btn {
+            max-width: 520px;
+            margin: auto;
+
+            @include g.lg {
+                display: flex;
+                gap: 20px;
+                max-width: 750px;
+
+                a {
+                    width: 50%;
+                }
+            }
+        }
+    }
+
+    .footer_bottom {
+        padding: 40px 0;
+        max-width: 750px;
+        margin: auto;
+
+        @include g.md {
+            padding: 80px 0 40px;
+        }
+
+        figure {
+            text-align: center;
+
+            img {
+                width: 100px;
+                display: inline-block;
+                margin: 0 auto 30px;
+
+                @include g.md {
+                    margin-bottom: 50px;
+                }
+            }
+        }
+
+        ul {
+            display: grid;
+            font-size: 12px;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 0 20px;
+            text-align: center;
+            margin-bottom: 30px;
+
+            @include g.md {
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            }
+
+            a {
+                transition: .5s;
+
+                &:hover {
+                    opacity: .7;
+                }
+            }
+        }
+
+        span {
+            color: #9CA2A1;
+            display: block;
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+
+    .arrow_top {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 40px;
+
+        a {
+            display: none;
+
+            @include g.lg {
+                font-size: 1.5em;
+                position: fixed;
+                bottom: 40px;
+                background: #fff;
+                box-shadow: 2px 2px 6px rgb(0 0 0 / 10%);
+                border-radius: 100%;
+                color: var(--main_color);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 60px;
+                height: 60px;
+                z-index: 1;
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+@use "../global" as g;
+/*--------------------------------------
+タイトル
+--------------------------------------*/
+
+/* トップページの共通タイトル */
+.title{
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+
+  @include g.md{
+    font-size: 32px;
+  }
+
+  span{
+    color: #1E5349;
+    display: block;
+    font-size: .6em;
+    letter-spacing: 0;
+  }
+}
+
+/* 下層ページの共通タイトル1 */
+.secondary_title{
+  margin-bottom: 20px;
+
+  @include g.md{
+    margin-bottom: 40px;
+  }
+  h3{
+    border-left: 5px solid ;
+    color: var(--main_color);
+    font-size: 24px;
+    padding-left: 5px;
+    line-height: 1;
+
+    @include g.lg{
+      font-size: 30px;
+    }
+  }
+}
+
+/* 下層ページの共通タイトル2 */
+.tertiary_title{
+  h4{
+    border-bottom: 1px solid;
+    font-size: 18px;
+    padding-bottom: 10px;
+
+    @include g.lg{
+      font-size: 26px;
+    }
+  }
+}
