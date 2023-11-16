@@ -7,6 +7,7 @@
     <meta name="description" content="{{ $page_meta_tags['description'] ?? '' }}">
     <meta name="keywords" content="{{ $page_meta_tags['keywords'] ?? '' }}">
     <meta name="format-detection" content="telephone=no">
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ url('images/favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ url('images/apple-touch-icon.png') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" / media="print" onload="this.media='all'">
@@ -15,6 +16,7 @@
     <script src="https://kit.fontawesome.com/7f2a70e336.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.js" defer></script>
     <script src="{{ url('js/script.js') }}" defer></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://d.shutto-translation.com/trans.js?id=33255"></script>
   </head>
   <body id="top">
@@ -55,7 +57,7 @@
                 <li><a href="{{ url(config('custom.page.category4.url')) }}">{{ config('custom.page.category4.name') }}<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-1x"></i><i class="fa-solid fa-caret-right fa-stack-1x"></i></span></a></li>
                 <li><a href="{{ url(config('custom.page.category5.url')) }}">{{ config('custom.page.category5.name') }}<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-1x"></i><i class="fa-solid fa-caret-right fa-stack-1x"></i></span></a></li>
                 <li><a href="{{ url(config('custom.page.category7.url')) }}">{{ config('custom.page.category7.name') }}<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-1x"></i><i class="fa-solid fa-caret-right fa-stack-1x"></i></span></a></li>
-                <li><a href="{{ url(config('custom.page.category6.url')) }}">{{ config('custom.page.category6.name') }}<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-1x"></i><i class="fa-solid fa-caret-right fa-stack-1x"></i></span></a></li>
+{{--                <li><a href="{{ url(config('custom.page.category6.url')) }}">{{ config('custom.page.category6.name') }}<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-1x"></i><i class="fa-solid fa-caret-right fa-stack-1x"></i></span></a></li>--}}
                 <li><a href="{{ url(config('custom.page.category8.url')) }}">{{ config('custom.page.category8.name') }}<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-1x"></i><i class="fa-solid fa-caret-right fa-stack-1x"></i></span></a></li>
                 <li><a href="{{ url(config('custom.page.contact.url')) }}">{{ config('custom.page.contact.name') }}<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-1x"></i><i class="fa-solid fa-caret-right fa-stack-1x"></i></span></a></li>
                 <li>

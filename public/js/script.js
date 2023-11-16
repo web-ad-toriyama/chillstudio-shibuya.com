@@ -76,6 +76,9 @@ const swiper = new Swiper('.mainvisual', {
 // zipcloudのapiへのアクセスURL
 const api = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=";
 
+// お問い合わせフォームの機能
+const contactForm = document.forms.contact;
+
 // 検索ボタンがクリックされた場合、住所の取得を実行
 function addressSearch() {
     // 入力された郵便番号を取得
@@ -119,4 +122,84 @@ function addressSearch() {
 
             window.scroll({ top: 0, behavior: "smooth" });
         });
+}
+
+function validationCheck() {
+    // 既にエラーメッセージが表示されている場合、削除する
+    list_elements = document.getElementsByClassName("contact_errors");
+    var length = list_elements.length;
+    if (length > 0) {
+        for (let i = 0; i < length; i++) {
+            list_elements[0].remove();
+        }
+    }
+
+    // バリデーションが必要な入力値を取得
+    let name = document.getElementById("name").value;
+    let post_code = document.getElementById("post_code").value;
+    let tel = document.getElementById("tel").value;
+    let fax = document.getElementById("fax").value;
+    let email = document.getElementById("email").value;
+
+    // csrf対策トークンの取得
+    let token = document.querySelector('meta[name="csrf-token"]').content;
+
+    // データを整形
+    var send_data = {
+        contact_name: name,
+        contact_post_code: post_code,
+        contact_tel: tel,
+        contact_fax: fax,
+        contact_email: email
+    };
+
+    const url = "/contact/confirm";
+    let request = new XMLHttpRequest();
+
+    request.onreadystatechange = function () {
+        if (request.readyState == 4) {
+            if (request.status == 200) {
+                contactForm.submit();
+            } else if (request.status == 422) {
+                var errors = JSON.parse(request.responseText);
+                for (var key in errors) {
+                    // リストを作成
+                    let errorList = document.createElement("li");
+
+                    if (key === "contact_post_code") {
+                        errorList.className = "contact_errors post_code";
+                    } else {
+                        errorList.className = "contact_errors";
+                    }
+
+                    // リストにエラーメッセージを投入
+                    errorList.textContent = errors[key][0];
+
+                    // エラーメッセージのリストを表示要素に追加
+                    document
+                        .getElementById("contact_error_messages")
+                        .appendChild(errorList);
+                }
+                window.scroll({ top: 0, behavior: "smooth" });
+            } else {
+                // リストを作成
+                let errorList = document.createElement("li");
+                errorList.className = "access_error";
+
+                // リストにエラーメッセージを投入
+                errorList.textContent = "不正なアクセスが検出されました。";
+                // エラーメッセージのリストを表示要素に追加
+                document
+                    .getElementById("contact_error_messages")
+                    .appendChild(errorList);
+                window.scroll({ top: 0, behavior: "smooth" });
+            }
+        }
+    };
+
+    request.open("POST", url, true);
+    request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    request.setRequestHeader("X-CSRF-TOKEN", token);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(JSON.stringify(send_data));
 }

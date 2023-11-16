@@ -123,37 +123,37 @@
         </div>
       </div>
     </section>
-    <section class="cat cat_05" id="cat_05">
-      <div class="inner">
-      <section>
-          <h2 class="title"><span>NEWS</span>お知らせ</h2>
-          @if ($news->count() > 0)
-          <ul class="news_list">
-            @foreach ($news as $value)
-            <li>
-              <a href="{{ url(config('custom.page.category6_detail.url').'/'.$value->id) }}">
-                <article>
-                  <time>▶&nbsp;{{ \Carbon\Carbon::parse($value->published_at)->format('Y.m.d') }}</time>
-                  <h3>
-                    <span class="notice">{{ config('custom.icon.news')[$value->icon] }}</span><br>{{ $value->title }}
-                  </h3>
-                </article>
-              </a>
-            </li>
-            @endforeach
-          </ul>
-          {{ link_to_route(config('custom.page.category6.route'), 'More', null, ['class'=>'btn_01']) }}
-          {{-- <a href="index_10.html" class="btn_01">More</a> --}}
-          @endif
-      </section>
-      <section>
-        <h2 class="title"><span>TWITTER</span>公式アカウント</h2>
-        <div class="twitter_box">
-          <a class="twitter-timeline" data-width="800" data-height="415" href="https://twitter.com/TwitterJP?ref_src=twsrc%5Etfw">Tweets by TwitterJP</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
-    </section>
-    </div>
-    </section>
+{{--    <section class="cat cat_05" id="cat_05">--}}
+{{--      <div class="inner">--}}
+{{--      <section>--}}
+{{--          <h2 class="title"><span>NEWS</span>お知らせ</h2>--}}
+{{--          @if ($news->count() > 0)--}}
+{{--          <ul class="news_list">--}}
+{{--            @foreach ($news as $value)--}}
+{{--            <li>--}}
+{{--              <a href="{{ url(config('custom.page.category6_detail.url').'/'.$value->id) }}">--}}
+{{--                <article>--}}
+{{--                  <time>▶&nbsp;{{ \Carbon\Carbon::parse($value->published_at)->format('Y.m.d') }}</time>--}}
+{{--                  <h3>--}}
+{{--                    <span class="notice">{{ config('custom.icon.news')[$value->icon] }}</span><br>{{ $value->title }}--}}
+{{--                  </h3>--}}
+{{--                </article>--}}
+{{--              </a>--}}
+{{--            </li>--}}
+{{--            @endforeach--}}
+{{--          </ul>--}}
+{{--          {{ link_to_route(config('custom.page.category6.route'), 'More', null, ['class'=>'btn_01']) }}--}}
+{{--          --}}{{-- <a href="index_10.html" class="btn_01">More</a> --}}
+{{--          @endif--}}
+{{--      </section>--}}
+{{--      <section>--}}
+{{--        <h2 class="title"><span>TWITTER</span>公式アカウント</h2>--}}
+{{--        <div class="twitter_box">--}}
+{{--          <a class="twitter-timeline" data-width="800" data-height="415" href="https://twitter.com/TwitterJP?ref_src=twsrc%5Etfw">Tweets by TwitterJP</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>--}}
+{{--        </div>--}}
+{{--    </section>--}}
+{{--    </div>--}}
+{{--    </section>--}}
   </main>
 <!-- //ここまでmain ********************************************************************************-->
 @endsection

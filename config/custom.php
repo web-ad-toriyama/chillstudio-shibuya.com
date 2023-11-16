@@ -11,56 +11,56 @@ return [
         ],
 
         'category1' => [
-            'url' => '/about',
-            'route' => 'about',
-            'name' => 'ABOUT'
+            'url' => '/studio',
+            'route' => 'studio',
+            'name' => 'STUDIO'
         ],
 
         'category2' => [
-            'url' => '/service',
-            'route' => 'service',
-            'name' => 'SERVICE'
+            'url' => '/price',
+            'route' => 'price',
+            'name' => 'PRICE'
         ],
 
         // 管理画面投稿一覧を表示するページで使用してください。
         'category3' => [
-            'url' => '/works',
-            'route' => 'works',
-            'name' => 'WORKS'
-        ],
-
-        'category3_detail' => [
-            'url' => '/works/detail',
-            'route' => 'works.detail',
-            'name' => 'WORKS詳細'
-        ],
-        // -------------------------------------------------------
-
-        'category4' => [
-            'url' => '/corporate',
-            'route' => 'corporate',
-            'name' => 'CORPORATE'
-        ],
-
-        'category5' => [
-            'url' => '/recruit',
-            'route' => 'recruit',
-            'name' => 'RECRUIT'
-        ],
-
-        // 管理画面お知らせ一覧を表示するページで使用してください。
-        'category6' => [
             'url' => '/news',
             'route' => 'news',
             'name' => 'NEWS'
         ],
-        // -------------------------------------------------------
 
-        'category6_detail' => [
+        'category3_detail' => [
             'url' => '/news/detail',
             'route' => 'news.detail',
             'name' => 'NEWS詳細'
         ],
+        // -------------------------------------------------------
+
+        'category4' => [
+            'url' => '/quality',
+            'route' => 'quality',
+            'name' => 'QUALITY'
+        ],
+
+        'category5' => [
+            'url' => '/access',
+            'route' => 'access',
+            'name' => 'ACCESS'
+        ],
+
+        // 管理画面お知らせ一覧を表示するページで使用してください。
+//        'category6' => [
+//            'url' => '/news',
+//            'route' => 'news',
+//            'name' => 'NEWS'
+//        ],
+//        // -------------------------------------------------------
+//
+//        'category6_detail' => [
+//            'url' => '/news/detail',
+//            'route' => 'news.detail',
+//            'name' => 'NEWS詳細'
+//        ],
 
         'category7' => [
             'url' => '/menu',
@@ -154,6 +154,7 @@ return [
         'default' => [
             // 例) contact_name => '氏名', 　←入力欄の表示名が「氏名」に変更されます
             'contact_name' => 'お名前',
+            'contact_day' => '予約希望日',
             'contact_email' => 'メールアドレス',
             'contact_email_confirmation' => 'メールアドレス確認用',
             'contact_tel' => '電話番号',

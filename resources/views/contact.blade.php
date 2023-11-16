@@ -1,226 +1,146 @@
 @extends('common.layout')
 
 @section('main')
-<!-- ここからmain ********************************************************************************-->
-<main class="index_9">
+    <!-- ここからmain ********************************************************************************-->
+    <!-- お問い合わせ - contact -->
+
+    <main id="page_contact">
 
     <div class="subvisual">
-      <h2>
-        タイトルが入ります。
-      </h2>
+        <h2 class="ff_en fw_b">CONTACT</h2>
+        <p>掲載希望者様フォーム</p>
     </div>
-    <div class="inner spacing">
-    <!-- ここからページによって異なるコンテンツ部分 -->
-      <section class="sec">
-     
-        <div class="secondary_title">
-          <h3>
-            h:3見出しが入ります
-          </h3>
-        </div>
-        <!-- エラーメッセージ -->
-        <ul class="error">
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <li>※{{ $error }}</li>
-                @endforeach
-            @endif
-        </ul>
 
-        {{-- お問い合わせフォーム --}}
-        {{ Form::open(['route'=>config('custom.page.contact_confirm.route')]) }}
+    <section class="form_contact section_pad60">
+        <div class="inner700 width_p30">
 
-        @foreach ($items as $index => $item)
-            {{-- デフォルトのお問い合わせ項目 --}}
-            {{-- お名前 --}}
-            @if ($item->name === 'contact_name')
-                <div class="item">
-                    <label class="label" for="name">{{ $item->title }} <span class="required_red">※<span></label>
-                    <div>
-                        {{ Form::text('contact_name', null, ['class'=>'inputs']) }}
-                    </div>
-                </div>
-            @endif
-
-            {{-- メールアドレス --}}
-            @if ($item->name === 'contact_email')
-                <div class="item">
-                    <label class="label" for="email">{{ $item->title }} <span class="required_red">※<span></label>
-                    <div>
-                        {{ Form::email('contact_email', null, ['class'=>'inputs']) }}
-                    </div>
-                </div>
-            @endif
-
-            {{-- メールアドレス確認用 --}}
-            @if ($item->name === 'contact_email_confirmation')
-                <div class="item">
-                    <label class="label" for="email">{{ $item->title }} <span class="required_red">※<span></label>
-                    <div>
-                        {{ Form::email('contact_email_confirmation', null, ['class'=>'inputs']) }}
-                    </div>
-                </div>
-            @endif
-
-            {{-- 電話番号 --}}
-            @if ($item->name === 'contact_tel')
-                <div class="item">
-                    <label class="label" for="tel">
-                        {{ $item->title }}
-                        @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                    </label>
-                    <div>
-                        {{ Form::tel('contact_tel', null, ['class'=>'inputs']) }}
-                    </div>
-                </div>
-            @endif
-
-            {{-- 郵便番号 --}}
-            @if ($item->name === 'contact_post_code')
-                <div class="item">
-                    <label class="label" for="post_code">
-                        {{ $item->title }}
-                        @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                    </label>
-                    <div class="post_code_box">
-                        {{ Form::text('contact_post_code', null, ['class'=>'inputs', 'id'=>'post_code']) }}
-                        @if ($items->contains('name', 'contact_address'))
-                            <button class="btn_04" type="button" onclick="addressSearch()">住所を検索</button>
-                        @endif
-                    </div>
-                </div>
-            @endif
-
-            {{-- 住所 --}}
-            @if ($item->name === 'contact_address')
-                <div class="item">
-                    <label class="label" for="address">
-                        {{ $item->title }}
-                        @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                    </label>
-                    <div>
-                        {{ Form::text('contact_address', null, ['class'=>'inputs', 'id'=>'address']) }}
-                    </div>
-                </div>
-            @endif
-
-            {{-- お問い合わせ用件 --}}
-            @if ($item->name === 'contact_requirement')
-                <div class="item radiobtn">
-                    <label class="label" for="requirement">
-                        {{ $item->title }}
-                        @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                    </label>
-                    <div class="inputs">
-                        @foreach (config('custom.icon.requirement') as $key => $value)
-                        <div class="contact_item">
-                            {{ Form::radio('contact_requirement', $key, null, ['id'=>'requirement_' . $key]) }}
-                            <label for="requirement_{{ $key }}">{{ $value }}</label>
-                        </div>
+            <div class="form_outer">
+                {{-- エラーはここでまとめて出力しているのでエラー表示の装飾をお願いします --}}
+                @if ($errors->any())
+                    <ul class="error">
+                        @foreach ($errors->all() as $error)
+                            <li>※{{ $error }}</li>
                         @endforeach
-                    </div>
-                </div>
-            @endif
-
-            {{-- お問い合わせ内容 --}}
-            @if ($item->name === 'contact_contents')
-                <div class="item comment">
-                    <label class="label" for="contents">
-                        {{ $item->title }}
-                        @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                    </label>
-                    <div>
-                        {{ Form::textarea('contact_contents', null, ['id' => 'contents', 'class'=>'inputs', 'rows'=>8]) }}
-                    </div>
-                </div>
-            @endif
-            {{-- // ここまでデフォルトのお問い合わせ項目 --}}
-
-            {{-- 管理画面で追加したお問い合わせ項目 --}}
-            @if ($item->edit_mode === config('custom.contact.edit_mode.custom'))
-
-                {{-- 入力形式：テキスト --}}
-                @if ($item->format === 'text')
-                    <div class="item txt">
-                        <label class="label" for="custom_item{{ $item->id }}">
-                            {{ $item->title }}
-                            @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                        </label>
-                        <div>
-                            {{ Form::text($item->name, null, ['id' => 'custom_item' . $item->id, 'class'=>'inputs']) }}
-                        </div>
-                    </div>
-
-                {{-- 入力形式：テキストボックス --}}
-                @elseif ($item->format === 'textarea')
-                    <div class="item comment">
-                        <label class="label" for="custom_item{{ $item->id }}">
-                            {{ $item->title }}
-                            @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                        </label>
-                        <div>
-                        {{ Form::textarea($item->name, null, ['id' => 'custom_item' . $item->id, 'class'=>'inputs']) }}
-                        </div>
-                    </div>
-
-                {{-- 入力形式：ラジオボタン --}}
-                @elseif ($item->format === 'radio')
-                    <div class="item radiobtn">
-                        <label class="label" for="custom_item{{ $item->id }}">
-                            {{ $item->title }}
-                            @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                        </label>
-                        <div class="inputs">
-                        @foreach ($item->options as $key => $value)
-                            <label for="custom_item{{ $item->id }}_option_{{ $key }}">
-                            {{ Form::radio($item->name . '[]', $key, null, ['id' => 'custom_item' . $item->id . '_option_' . $key]) }}
-                            {{ $value }}</label>
-                        @endforeach
-                        </div>
-                    </div>
-
-                {{-- 入力形式：プルダウン --}}
-                @elseif ($item->format === 'select')
-                    <div class="item pulldown">
-                        <label class="label" for="custom_item{{ $item->id }}">
-                            {{ $item->title }}
-                            @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                        </label>
-                        <div>
-                        {{ Form::select($item->name . '[]', $item->options, null, ['id' => 'custom_item' . $item->id, 'class'=>'']) }}
-                        </div>
-                    </div>
-
-                {{-- 入力形式：チェックボックス --}}
-                @elseif ($item->format === 'checkbox')
-                    <div class="item checkbox">
-                        <label class="label" for="custom_item{{ $item->id }}">
-                            {{ $item->title }}
-                            @if ($item->required == 'required') <span class="required_red">※<span> @endif
-                        </label>
-                        <div class="inputs">
-                        @foreach ($item->options as $key => $value)
-                            <label for="custom_item{{ $item->id }}_option_{{ $key }}">{{ Form::checkbox($item->name . '[]', $key, null, ['id' => 'custom_item' . $item->id . '_option_' . $key]) }}
-                                {{ $value }}</label>
-                        @endforeach
-                        </div>
-                    </div>
+                    </ul>
                 @endif
-            @endif
-            {{-- // ここまで 管理画面で追加したお問い合わせ項目 --}}
-        @endforeach
 
-          <div class="btn_area">
-            <input type="submit" value="送信内容を確認する"><input type="reset" value="リセット">
-          </div>
+                <div id="form_customer">
+                {{ Form::open(['route'=>config('custom.page.contact_confirm.route')]) }}
+                    <!-- お客様情報 -->
+                    <div class="tertiary_title"><h4>お客様情報</h4></div>
+                    <div class="item">
+                        <label class="label" for="company">お名前 <span class="required_red">※<span></label>
+                        <div>
+                            {{ Form::text('contact_name', null, ['class'=>'inputs']) }}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="label" for="company">予約希望日 <span class="required_red">※<span></label>
+                        <div>
+                            <input type="hidden" name="day_count" value="1">
+                            @for($i=1; $i<=5;$i++)
+                                <br>
+                                <div @if($i > 1)style="display:none"@endif class="date{{$i}}">
+                                    日付{{ Form::date('contact_day'.$i, \Carbon\Carbon::now()->format('Y-m-d')) }}
+                                    <select class="form-control" name="contact_start{{$i}}">
+                                        @for($j=0; $j<=23;$j++)
+                                        <option value="{{$j}}">{{$j}}</option>
+                                        @endfor
+                                    </select>時から
+                                    <select class="form-control" name="contact_time{{$i}}">
+                                        @for($k=1; $k<=5;$k++)
+                                            <option value="{{$k}}">{{$k}}</option>
+                                        @endfor
+                                    </select>時間
+                                </div>
+                            @endfor
+                            <span class="add">追加</span>
+                            <span class="del" style="display:none">削除</span>
 
-        {{ Form::close() }}
-      </section>
-    <!-- //ここまでページによって異なるコンテンツ部分 -->
-    </div>
+                            <script type="text/javascript">
+                                $('.add').on('click', function() {
+                                    var int = parseInt($('input[name="day_count"]').val()) + 1;
+                                    $('input[name="day_count"]').val(int);
+                                    $('.date'+int).show();
+                                    $('.del').show();
+                                    if(int == 5){
+                                        $('.add').hide();
+                                    }
+                                });
+                                $('.del').on('click', function() {
+                                    var before = parseInt($('input[name="day_count"]').val());
+                                    var int = parseInt($('input[name="day_count"]').val()) - 1;
+                                    $('input[name="day_count"]').val(int);
+                                    $('.date'+before).hide();
+                                    $('.add').show();
+                                    if(int == 1){
+                                        $('.del').hide();
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="label" for="company">メールアドレス <span class="required_red">※<span></label>
+                        <div>
+                            {{ Form::text('contact_email', null, ['class'=>'inputs']) }}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="label" for="company">メールアドレス確認用 <span class="required_red">※<span></label>
+                        <div>
+                            {{ Form::text('contact_email_confirmation', null, ['class'=>'inputs']) }}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="label" for="company">電話番号 <span class="required_red">※<span></label>
+                        <div>
+                            {{ Form::text('contact_tel', null, ['class'=>'inputs']) }}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="label" for="company">郵便番号 <span class="required_red">※<span></label>
+                        <div>
+                            {{ Form::text('post_code', null, ['class'=>'inputs', 'id'=>'post_code']) }}
+                            <button class="btn_04" type="button" onclick="addressSearch()">住所を検索</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <label class="label" for="address">
+                            住所 <span class="required_red">※<span>
+                        </label>
+                        <div>
+                            {{ Form::text('contact_address', null, ['class'=>'inputs', 'id'=>'address']) }}
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <label class="label" for="company">お問い合わせ要件 <span class="required_red">※<span></label>
+                        <div>
+                            {{ Form::select('contact_requirement', config('custom.icon.requirement'), null) }}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="label" for="company">お問い合わせ内容 </label>
+                        <div>
+                            {{ Form::textarea('contact_contents', null, ['class'=>'inputs']) }}
+                        </div>
+                    </div>
+
+                <div class="btn_area">
+                    <button class="btn_flat" type="submit">送信内容を確認する</button>
+                    <button class="btn_reset" type="reset" onclick="resetFileInput()">入力内容をリセット</button>
+                </div>
+
+                {{ Form::close() }}
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-  </main>
-<!-- //ここまでmain ********************************************************************************-->
+    </main>
+    <!-- //ここまでmain ********************************************************************************-->
 
 @endsection

@@ -40,8 +40,8 @@ Route::get(config('custom.page.category3.url'), [Category3Controller::class, 'in
 Route::get(config('custom.page.category3.url').'/detail/{id}', [Category3Controller::class, 'detail'])->name(config('custom.page.category3.route').'.detail')->where('id', '[0-9]+');
 Route::get(config('custom.page.category4.url'), [Category4Controller::class, 'index'])->name(config('custom.page.category4.route'));
 Route::get(config('custom.page.category5.url'), [Category5Controller::class, 'index'])->name(config('custom.page.category5.route'));
-Route::get(config('custom.page.category6.url'), [Category6Controller::class, 'index'])->name(config('custom.page.category6.route'));
-Route::get(config('custom.page.category6.url').'/detail/{id}', [Category6Controller::class, 'detail'])->name(config('custom.page.category6.route').'.detail')->where('id', '[0-9]+');
+//Route::get(config('custom.page.category6.url'), [Category6Controller::class, 'index'])->name(config('custom.page.category6.route'));
+//Route::get(config('custom.page.category6.url').'/detail/{id}', [Category6Controller::class, 'detail'])->name(config('custom.page.category6.route').'.detail')->where('id', '[0-9]+');
 Route::get(config('custom.page.category7.url'), [Category7Controller::class, 'index'])->name(config('custom.page.category7.route'));
 Route::get(config('custom.page.category8.url'), [Category8Controller::class, 'index'])->name(config('custom.page.category8.route'));
 Route::get(config('custom.page.contact.url'), [ContactController::class, 'index'])->name(config('custom.page.contact.route'));

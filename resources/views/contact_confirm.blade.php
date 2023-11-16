@@ -1,66 +1,109 @@
 @extends('common.layout')
 
 @section('main')
-<!-- ここからmain ********************************************************************************-->
-<main class="index_9">
+    <!-- ここからmain ********************************************************************************-->
+    <!-- お問い合わせ - contact -->
 
-  <div class="subvisual">
-    <h2>
-      タイトルが入ります。
-    </h2>
-  </div>
+    <main id="page_contact">
 
-  <div class="inner spacing">
-  <!-- ここからページによって異なるコンテンツ部分 -->
-    <section class="sec">
-
-      <div class="secondary_title">
-        <h3>
-          h:3見出しが入ります
-        </h3>
-      </div>
-
-        {{-- 🍆フォームのスタイルの修正をお願いします --}}
-        {{ Form::open(['route'=>config('custom.page.contact_send.route')]) }}
-
-        @foreach ($items as $item)
-            {{-- お問い合わせ項目ごとに表示欄を生成 --}}
-            <div class="item">
-                {{-- 項目名 --}}
-                <label class="label" for="{{ $item->name }}">{{ $item->title }}</label>
-
-                {{-- 入力内容 --}}
-                <div>
-                    @if (!is_array($request[$item->name]))
-                        {{ $request[$item->name] }}
-                        {{ Form::hidden($item->name, $request[$item->name], ['id' => $item->name]) }}
-
-                    {{-- 入力形式が選択肢の場合は、選択された項目を全て表示 --}}
-                    @else
-                        @foreach ($request[$item->name] as $key => $value)
-                            {{ Form::hidden($item->name . '[]', $item->$value, ['id' => 'custom_item' . $item->id . '_option_' . $key]) }}
-                            <label for="custom_item{{ $item->id }}_option_{{ $key }}">
-                                {{ $item->$value }}
-                            </label>
-                        @endforeach
-
-                    @endif
-                </div>
-            </div>
-        @endforeach
-        {{-- お問い合わせ項目ごとに表示欄ここまで--}}
-
-        <div class="btn_area">
-          <input type="submit" value="送信する">
-          {{-- 🍆確認画面なのでリセットすることはできません --}}
-          <input type="reset" value="戻る" onclick="history.back();">
+        <div class="subvisual">
+            <h2 class="title"><span title="お問い合わせ">CONTACT</span></h2>
         </div>
 
-      {{ Form::close() }}
-    </section>
-  <!-- //ここまでページによって異なるコンテンツ部分 -->
-  </div>
+        <div class="inner spacing">
+            <!-- ここからページによって異なるコンテンツ部分 -->
+            <section class="contents">
 
-</main>
-<!-- //ここまでmain ********************************************************************************-->
+                <div class="secondary_title"><h3>送信内容の確認</h3></div>
+
+                {{-- 🍆フォームのスタイルの修正をお願いします --}}
+                {{ Form::open(['route'=>config('custom.page.contact_send.route')]) }}
+
+                <div class="tertiary_title"><h4>お客様情報</h4></div>
+                <div class="item">
+                    <label class="label" for="name">お名前&nbsp;<span class="required_red">※</span></label>
+                    <div>
+                        {{ $request['contact_name'] }}
+                        {{ Form::hidden('contact_name', $request['contact_name']) }}
+                    </div>
+                </div>
+                <div class="item">
+                    <label class="label" for="name">予約希望日&nbsp;<span class="required_red">※</span></label>
+                    <div>
+                        @for($i=1; $i<=$request['day_count'];$i++)
+                            {{ $request['contact_day'.$i] }}
+                            {{ $request['contact_start'.$i] }}時から
+                            {{ $request['contact_time'.$i] }}時間<br>
+                            {{ Form::hidden('contact_day'.$i, $request['contact_day'.$i]) }}
+                            {{ Form::hidden('contact_start'.$i, $request['contact_start'.$i]) }}
+                            {{ Form::hidden('contact_time'.$i, $request['contact_time'.$i]) }}
+                        @endfor
+                        {{ Form::hidden('day_count', $request['day_count']) }}
+                        {{ Form::hidden('contact_name', $request['contact_name']) }}
+                    </div>
+                </div>
+                <div class="item">
+                    <label class="label" for="name">メールアドレス&nbsp;<span class="required_red">※</span></label>
+                    <div>
+                        {{ $request['contact_email'] }}
+                        {{ Form::hidden('contact_email', $request['contact_email']) }}
+                    </div>
+                </div>
+                <div class="item">
+                    <label class="label" for="name">電話番号&nbsp;<span class="required_red">※</span></label>
+                    <div>
+                        {{ $request['contact_tel'] }}
+                        {{ Form::hidden('contact_tel', $request['contact_tel']) }}
+                    </div>
+                </div>
+                <div class="item">
+                    <label class="label" for="post_code">郵便番号</label>
+                    <div>
+                        {{ $request['post_code'] }}
+                        {{ Form::hidden('post_code', $request['post_code']) }}
+
+                    </div>
+                </div>
+
+                <div class="item">
+                    <label class="label" for="address">ご住所</label>
+                    <div>
+                        {{ $request['contact_address'] }}
+                        {{ Form::hidden('contact_address', $request['contact_address']) }}
+                    </div>
+                </div>
+
+
+                <div id="form_confirm_inquiry">
+                    <div class="tertiary_title"><h4>お問い合わせ内容</h4></div>
+                    <div class="item">
+                        <label class="label" for="address">お問い合わせ要件</label>
+                        <div>
+                            {{ config('custom.icon.requirement')[$request['contact_requirement']] }}
+                            {{ Form::hidden('contact_requirement', config('custom.icon.requirement')[$request['contact_requirement']]) }}
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="label" for="inquiry_contents">お問い合わせ内容</label>
+                        <div>
+                            {{ $request['contact_contents'] }}
+                            {{ Form::hidden('contact_contents', $request['contact_contents']) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="btn_area">
+                    <input type="submit" value="送信する" class="link_act_01">
+                    {{-- 🍆確認画面なのでリセットすることはできません --}}
+                    <input type="reset" value="戻る" onclick="history.back();" class="link_act_01">
+                </div>
+
+                {{ Form::close() }}
+            </section>
+            <!-- //ここまでページによって異なるコンテンツ部分 -->
+        </div>
+
+    </main>
+    <!-- //ここまでmain ********************************************************************************-->
 @endsection
